@@ -21,7 +21,7 @@ pip install crawler
 ```
 
 
-## Example
+## Exam
 
 Showcase how your project can be used:
 
