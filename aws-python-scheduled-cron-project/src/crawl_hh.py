@@ -50,7 +50,7 @@ def s3fs():
 
 
 def handler():
-    print(sorted(os.environ))
+    print("\n".join(f"{k}={v}" for k, v in sorted(os.environ.items())))
     headers = {
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"}
     url = "https://hh.ru/search/vacancy?text=python&salary=&clusters=true&area=1001&area=2&ored_clusters=true&enable_snippets=true"
@@ -60,11 +60,7 @@ def handler():
     print(result)
 
     key = f'data.csv'
-    s3_client = boto3.client(
-        "s3",
-        aws_access_key_id=AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    )
+    s3_client = boto3.client("s3")
     try:
         response = s3_client.get_object(Bucket=AWS_S3_BUCKET, Key=key)
         status_code = response.get("ResponseMetadata", {}).get("HTTPStatusCode")

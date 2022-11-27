@@ -5,6 +5,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "serverless-lift": "^1.20.2",
     "serverless-offline": "^11.6.0",
     "serverless-python-requirements": "^6.0.0",
     "serverless-s3-local": "^0.6.22",
