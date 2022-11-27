@@ -4,19 +4,48 @@ service: aws-python-scheduled-cron-project
 
 frameworkVersion: '3'
 
-
 provider:
   name: aws
-  runtime: python3.8
-
+  runtime: python3.9
+  region: eu-central-1
+  timeout: 900
+  memorySize: 1024
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+package:
+  exclude:
+    - node_modules/**
+    - .venv/**
 functions:
-  rateHandler:
-    handler: handler.run
-    events:
-      # Invoke Lambda function every minute
-      - schedule: rate(1 minute)
   cronHandler:
     handler: handler.run
     events:
-      # Invoke Lambda function every 2nd minute from Mon-Fri
-      - schedule: cron(0/2 * ? * MON-FRI *)
+      - schedule: cron(0 12 * * ? *)
+plugins:
+  - serverless-python-requirements
+
+custom:
+  bucket: ${AWS_S3_BUCKET}
+  pythonRequirements:
+    dockerizePip: true
+
+
+#  - serverless-s3-local
+#  - serverless-offline
+#   - serverless-s3-sync
+#resources:
+#  Resources:
+#    Data:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: ${AWS_S3_BUCKET}
+
+
+
+#  s3Sync:
+#    # A simple configuration for copying static assets
+#    - bucketName: ${AWS_S3_BUCKET} # required
+#      localDir: empty # required

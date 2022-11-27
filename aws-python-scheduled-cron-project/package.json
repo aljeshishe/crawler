@@ -3,5 +3,15 @@
   "version": "1.0.0",
   "description": "Example of creating a function that runs as a cron job using the serverless `schedule` event",
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-offline": "^11.6.0",
+    "serverless-python-requirements": "^6.0.0",
+    "serverless-s3-local": "^0.6.22",
+    "serverless-s3-sync": "^3.1.0",
+    "serverless-seed": "^0.3.15"
+  },
+  "dependencies": {
+    "serverless-s3bucket-sync": "^0.1.5"
+  }
 }
