@@ -4,19 +4,26 @@ service: aws-python-scheduled-cron-project
 useDotenv: true
 frameworkVersion: '3'
 
+custom:
+  s3_bucket: "${self:app}-data-bucket-${self:provider.stage}"
+  pythonRequirements:
+    dockerizePip: true
+    layer: true
+
 provider:
   name: aws
   runtime: python3.9
-  region: eu-central-1
+  stage: ${opt:stage, env:AWS_STAGE, 'dev'}
+  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
   timeout: 900
   memorySize: 1024
-  stage: dev
-#  iamRoleStatements:
-#    - Effect: Allow
-#      Action:
-#        - s3:*
-#      Resource: "arn:aws:s3:::${construct:data.bucketName}/*"
-
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:*"
+          Resource: "*"
 
 package:
   exclude:
@@ -29,39 +36,18 @@ functions:
     events:
       - schedule: cron(0 12 * * ? *)
     environment:
-      AWS_S3_BUCKET: "${construct:data.bucketName}"
+      AWS_S3_BUCKET: ${self:custom.s3_bucket}
 
     layers:
       - Ref: PythonRequirementsLambdaLayer
 
 plugins:
   - serverless-python-requirements
-  - serverless-lift
 
-custom:
-  AWS_S3_BUCKET: "${construct:data.bucketName}"
-  pythonRequirements:
-    dockerizePip: true
-    layer: true
+resources:
+  Resources:
+    DataBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.s3_bucket}
 
-
-constructs:
-  data:
-    type: storage
-
-#  - serverless-s3-local
-#  - serverless-offline
-#   - serverless-s3-sync
-#resources:
-#  Resources:
-#    Data:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: ${AWS_S3_BUCKET}
-
-
-
-#  s3Sync:
-#    # A simple configuration for copying static assets
-#    - bucketName: ${AWS_S3_BUCKET} # required
-#      localDir: empty # required
