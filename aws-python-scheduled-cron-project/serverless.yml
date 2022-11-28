@@ -8,6 +8,7 @@ custom:
   s3_bucket: "${self:app}-data-bucket-${self:provider.stage}"
   pythonRequirements:
     dockerizePip: true
+    usePoetry: true
     layer: true
 
 provider:
