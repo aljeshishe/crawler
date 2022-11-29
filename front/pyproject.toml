@@ -1,16 +1,16 @@
 [tool.poetry]
-name = "aws-python-scheduled-cron-project"
+name = "front"
 version = "0.1.0"
 description = ""
 authors = ["alexeygrachev <agrachev@cindicator.com>"]
 readme = "README.md"
-packages = [{include = "aws_python_scheduled_cron_project"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-requests = "^2.28.1"
-pandas = "^1.5.2"
-boto3 = "^1.26.16"
+python = "3.9.13"
+dash = "^2.7.0"
+plotly = "^5.11.0"
+flask = "^2.2.2"
+werkzeug = "^2.2.2"
 
 
 [build-system]

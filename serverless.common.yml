@@ -1,0 +1,5 @@
+app: crawler
+org: aljeshishe3
+
+custom:
+  s3_bucket: "crawler-data-bucket-khk3rkkds"

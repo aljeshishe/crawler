@@ -1,0 +1,36 @@
+app: crawler
+org: aljeshishe3
+service: front
+
+frameworkVersion: '3'
+
+custom:
+#  pythonRequirements:
+#    dockerizePip: true
+#    usePoetry: true
+#    layer: true
+  wsgi:
+    app: app.app
+
+provider:
+  name: aws
+  runtime: python3.9
+  stage: ${opt:stage, env:AWS_STAGE, 'dev'}
+  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
+  deploymentMethod: direct
+
+functions:
+  api:
+    handler: wsgi_handler.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-wsgi
+  - serverless-python-requirements
+  - serverless-offline
+
+package:
+  exclude:
+    - node_modules/**
+    - .venv/**

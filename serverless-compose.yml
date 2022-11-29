@@ -1,0 +1,15 @@
+services:
+
+  resources:
+    path: resources
+
+  worker:
+    path: worker
+    dependsOn:
+      - resources
+
+  front:
+    path: front
+    dependsOn:
+      - resources
+
