@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "front"
+version = "0.1.0"
+description = ""
+authors = ["alexeygrachev <agrachev@cindicator.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+dash = "^2.7.0"
+plotly = "^5.11.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
