@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/hello")
 def hello():
-    return jsonify(message='Hello from path!')
+    return jsonify(message='Hello from path!1')
 
 
 _app = Dash(

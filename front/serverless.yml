@@ -5,10 +5,10 @@ service: front
 frameworkVersion: '3'
 
 custom:
-#  pythonRequirements:
-#    dockerizePip: true
-#    usePoetry: true
-#    layer: true
+  pythonRequirements:
+    dockerizePip: true
+    usePoetry: true
+    layer: true
   wsgi:
     app: app.app
 
@@ -24,7 +24,8 @@ functions:
     handler: wsgi_handler.handler
     events:
       - httpApi: '*'
-
+    layers:
+      - Ref: PythonRequirementsLambdaLayer
 plugins:
   - serverless-wsgi
   - serverless-python-requirements
