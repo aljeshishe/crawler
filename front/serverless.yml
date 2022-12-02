@@ -1,16 +1,14 @@
 app: crawler
 org: aljeshishe3
 service: front
+useDotenv: true
 
 frameworkVersion: '3'
 
 custom:
-  pythonRequirements:
-    dockerizePip: true
-    usePoetry: true
-    layer: true
   wsgi:
-    app: app.app
+    app: app.server
+    packRequirements: false
 
 provider:
   name: aws
@@ -21,17 +19,11 @@ provider:
 
 functions:
   api:
-    handler: wsgi_handler.handler
     events:
       - httpApi: '*'
-    layers:
-      - Ref: PythonRequirementsLambdaLayer
+    image: ${env:REMOTE_IMAGE}
+
 plugins:
   - serverless-wsgi
-  - serverless-python-requirements
   - serverless-offline
 
-package:
-  exclude:
-    - node_modules/**
-    - .venv/**
