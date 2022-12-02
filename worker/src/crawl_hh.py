@@ -49,7 +49,6 @@ def s3fs():
 
 
 def handler():
-    print("\n".join(f"{k}={v}" for k, v in sorted(os.environ.items())))
     headers = {
         "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"}
     url = "https://hh.ru/search/vacancy?text=python&salary=&clusters=true&area=1001&area=2&ored_clusters=true&enable_snippets=true"
@@ -79,25 +78,6 @@ def handler():
 
         status_code = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
         assert status_code == 200, f"HTTPStatusCode={status_code} expected:200"
-
-
-    # wrangle implementation
-    # path = f's3://{AWS_S3_BUCKET}/data.csv'
-    # try:
-    #     df = wr.s3.read_csv(path=path)
-    # except awswrangler.exceptions.NoFilesFound:
-    #     df = pd.DataFrame(columns=['dt', 'count'])
-
-    # df = df.append(dict(dt=datetime.utcnow(), count=result), ignore_index=True)
-    # wr.s3.to_csv(df=df, path=path)
-
-    # boto3_save_csv()
-    # save2()
-    # AWS_S3_BUCKET = os.getenv("AWS_S3_BUCKET")
-    # df = pd.DataFrame()
-    # df.to_csv(f"s3://{AWS_S3_BUCKET}/crawl_hh/data.zip")
-
-
 
 def save2():
     import boto3

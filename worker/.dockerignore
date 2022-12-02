@@ -1,4 +1,4 @@
 .serverless
-*.pyc
-*.pyo
+.venv
+.experiments
 node_modules

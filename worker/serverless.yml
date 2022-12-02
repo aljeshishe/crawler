@@ -6,10 +6,6 @@ frameworkVersion: '3'
 
 custom:
   s3_bucket: ${file(../serverless.common.yml):custom.s3_bucket}
-  pythonRequirements:
-    dockerizePip: true
-    usePoetry: true
-    layer: true
 
 provider:
   name: aws
@@ -19,29 +15,40 @@ provider:
   timeout: 900
   memorySize: 1024
   deploymentMethod: direct
-#  iam:
-#    role:
-#      statements:
-#        - Effect: "Allow"
-#          Action:
-#            - "s3:*"
-#          Resource: "*"
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:*"
+          Resource: "*"
+
+#package:
+#  exclude:
+#    - node_modules/**
+#    - .venv/**
 
 package:
-  exclude:
-    - node_modules/**
+  individually: true
+  patterns:
     - .venv/**
+    - "!*.txt"
+    - "!*.md"
+    - "!*.json"
+    - "!node_modules/**"
+    - "!layers/**"
+    - "!resources/**"
+    - "!src/**"
 
 functions:
   cronHandler:
-    handler: handler.run
+    # handler: handler.run
+    image: ${env:REMOTE_IMAGE}
     events:
       - schedule: cron(0 12 * * ? *)
     environment:
         AWS_S3_BUCKET: ${self:custom.s3_bucket}
 
-    layers:
-      - Ref: PythonRequirementsLambdaLayer
 
 plugins:
-  - serverless-python-requirements
+  - serverless-offline

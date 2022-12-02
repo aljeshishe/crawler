@@ -1,8 +1,3 @@
-try:
-    import unzip_requirements
-except ImportError:
-    pass
-
 import logging
 
 logger = logging.getLogger(__name__)
@@ -11,4 +6,5 @@ from src import crawl_hh
 
 
 def run(event, context):
+    print("hell1o")
     crawl_hh.handler()
