@@ -6,18 +6,21 @@ framework: v3
 platform: AWS
 language: Python
 priority: 2
-authorLink: 'https://github.com/rupakg'
-authorName: 'Rupak Ganguly'
-authorAvatar: 'https://avatars0.githubusercontent.com/u/8188?v=4&s=140'
+authorLink: 'https://github.com/aljeshishe'
+authorName: 'Aleksei Grachev'
 -->
 
-# Serverless Framework Python Scheduled Cron on AWS
+# Crawler
 
 This template demonstrates how to develop and deploy a simple cron-like service running on AWS Lambda using the traditional Serverless Framework.
-
-## Schedule event type
-
-This examples defines two functions, `rateHandler` and `cronHandler`, both of which are triggered by an event of `schedule` type, which is used for configuring functions to be executed at specific time or in specific intervals. For detailed information about `schedule` event, please refer to corresponding section of Serverless [docs](https://serverless.com/framework/docs/providers/aws/events/schedule/).
+Start development
+```
+make setup
+```
+Make full deployment
+```
+make full_deploy
+```
 
 When defining `schedule` events, we need to use `rate` or `cron` expression syntax.
 
