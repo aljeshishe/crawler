@@ -5,8 +5,7 @@ export
 
 .PHONY: setdown
 setdown:
- aws ecr list-images --repository-name ${IMAGE_NAME} --query 'imageIds[*][imageDigest]' --output text | \
- 	while read imageId; do aws ecr batch-delete-image --repository-name ${IMAGE_NAME} --image-ids imageDigest=$imageId; done
+	aws ecr list-images --repository-name ${IMAGE_NAME} --query 'imageIds[*][imageDigest]' --output text | while read imageId; do aws ecr batch-delete-image --repository-name ${IMAGE_NAME} --image-ids imageDigest=$imageId; done
 	aws ecr delete-repository --repository-name ${IMAGE_NAME} --force
 
 .PHONY: build
