@@ -25,4 +25,4 @@ if __name__ == "__main__":
     client = boto3.client('lambda')
     with Path("serverless.yml").open() as f:
         data = munch.munchify(yaml.safe_load(f))
-    invoke_function(service=data.service, stage="dev", function="cronHandler")
+    invoke_function(service=data.service, stage="dev", function="worker")

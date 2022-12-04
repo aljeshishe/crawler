@@ -23,26 +23,8 @@ provider:
             - "s3:*"
           Resource: "*"
 
-#package:
-#  exclude:
-#    - node_modules/**
-#    - .venv/**
-
-package:
-  individually: true
-  patterns:
-    - .venv/**
-    - "!*.txt"
-    - "!*.md"
-    - "!*.json"
-    - "!node_modules/**"
-    - "!layers/**"
-    - "!resources/**"
-    - "!src/**"
-
 functions:
-  cronHandler:
-    # handler: handler.run
+  worker:
     image: ${env:REMOTE_IMAGE}
     events:
       - schedule: cron(0 12 * * ? *)
