@@ -3,23 +3,22 @@ SHELL:=/usr/bin/env bash
 include .env
 export
 
-.PHONY: setup
-setup:
-	aws ecr create-repository --repository-name ${IMAGE_NAME} --image-scanning-configuration scanOnPush=true --image-tag-mutability MUTABLE --profile ${AWS_PROFILE} --region ${AWS_REGION}
-
 .PHONY: setdown
 setdown:
- aws ecr list-images --repository-name ${IMAGE_NAME} --query 'imageIds[*][imageDigest]' --output text | \
- 	while read imageId; do aws ecr batch-delete-image --repository-name ${IMAGE_NAME} --image-ids imageDigest=$imageId; done
+	aws ecr list-images --repository-name ${IMAGE_NAME} --query 'imageIds[*][imageDigest]' --output text | while read imageId; do aws ecr batch-delete-image --repository-name ${IMAGE_NAME} --image-ids imageDigest=$imageId; done
+	aws ecr delete-repository --repository-name ${IMAGE_NAME} --force
 
 .PHONY: build
 build:
 	poetry export -f requirements.txt -o requirements.txt --only=main
 	docker build --progress=plain -t ${LOCAL_IMAGE} .
- # docker builder prune --filter type=exec.cachemount
+
 .PHONY: push
 push:
+	# get password from aws and login to ECR
 	aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT}.dkr.ecr.eu-central-1.amazonaws.com
+	# create ECR repository if not exists
+	aws ecr describe-repositories --repository-names ${IMAGE_NAME} || aws ecr create-repository --repository-name ${IMAGE_NAME}
 	docker tag ${LOCAL_IMAGE} ${REMOTE_IMAGE}
 	docker push ${REMOTE_IMAGE}
 
