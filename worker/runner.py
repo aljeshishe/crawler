@@ -19,6 +19,8 @@ def invoke_function(service, stage, function):
     if r.get('FunctionError') == 'Unhandled':
         print("Error!")
         exit(-1)
+    print("OK")
+
 
 
 if __name__ == "__main__":

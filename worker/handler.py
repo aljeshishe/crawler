@@ -6,5 +6,4 @@ from src import crawl_hh
 
 
 def run(event, context):
-    print("hell1o")
     crawl_hh.handler()

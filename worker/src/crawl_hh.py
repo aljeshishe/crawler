@@ -55,7 +55,7 @@ def handler():
     resp = requests.get(url=url, headers=headers)
     resp.raise_for_status()
     result = int(re.search("'vacancies_found': '(\d+)'", resp.text).group(1))
-    print(result)
+    print(f"Vacancies found: {result}")
 
     key = f'data.csv'
     s3_client = boto3.client("s3")
