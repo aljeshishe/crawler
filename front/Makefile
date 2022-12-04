@@ -11,7 +11,6 @@ setdown:
 .PHONY: build
 build:
 	poetry export -f requirements.txt -o requirements.txt --only=main
-	sls wsgi install
 	docker build --progress=plain -t ${LOCAL_IMAGE} .
 
 .PHONY: push

@@ -15,10 +15,10 @@ import traceback
 
 # Call decompression helper from `serverless-python-requirements` if
 # available. See: https://github.com/UnitedIncome/serverless-python-requirements#dealing-with-lambdas-size-limitations
-try:
-    import unzip_requirements  # noqa
-except ImportError:
-    pass
+# try:
+#     import unzip_requirements  # noqa
+# except ImportError:
+#     pass
 
 import serverless_wsgi
 

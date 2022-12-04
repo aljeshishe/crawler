@@ -5,10 +5,11 @@ useDotenv: true
 
 frameworkVersion: '3'
 
-custom:
-  wsgi:
-    app: app.server
-    packRequirements: false
+# TODO GARCHEV temporary comment, because wsgi removed wsgi_handler.py and
+#custom:
+#  wsgi:
+#    app: app.server
+#    packRequirements: false
 
 provider:
   name: aws
@@ -16,6 +17,13 @@ provider:
   stage: ${opt:stage, env:AWS_STAGE, 'dev'}
   region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
   deploymentMethod: direct
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:*"
+          Resource: "*"
 
 functions:
   api:
@@ -24,6 +32,5 @@ functions:
     image: ${env:REMOTE_IMAGE}
 
 plugins:
-  - serverless-wsgi
   - serverless-offline
 
