@@ -1,20 +1,25 @@
-app: crawler
-org: aljeshishe3
+app: ${self:parent.app}
+org: ${self:parent.org}
 service: worker
 useDotenv: true
-frameworkVersion: '3'
+frameworkVersion: ${self:parent.frameworkVersion}
 
-custom:
-  s3_bucket: ${file(../serverless.common.yml):custom.s3_bucket}
+parent: ${file(../serverless.common.yml):parent}
+# custom:
+#  IMAGE_NAME: ${self:app}-${self:service}
+#  LOCAL_IMAGE: ${self:custom.IMAGE_NAME}:latest
+#  REMOTE_IMAGE: ${self:parent.AWS_ACCOUNT}.dkr.ecr.${self:parent.AWS_REGION}.amazonaws.com/${self:custom.LOCAL_IMAGE}
 
 provider:
   name: aws
   runtime: python3.9
-  stage: ${opt:stage, env:AWS_STAGE, 'dev'}
-  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
+  stage: ${self:parent.stage}
+  region: ${self:parent.region}
   timeout: 900
   memorySize: 1024
   deploymentMethod: direct
+  stackName: ${self:parent.stackName}
+  deploymentPrefix: ${self:parent.deploymentPrefix}
   iam:
     role:
       statements:
@@ -22,14 +27,17 @@ provider:
           Action:
             - "s3:*"
           Resource: "*"
-
+  ecr:
+    images:
+      latest:
+        uri: ${self:parent.REMOTE_IMAGE}
 functions:
   worker:
-    image: ${env:REMOTE_IMAGE}
+    image: latest
     events:
       - schedule: cron(0 12 * * ? *)
     environment:
-        AWS_S3_BUCKET: ${self:custom.s3_bucket}
+        AWS_S3_BUCKET: ${self:parent.AWS_S3_BUCKET}
 
 
 plugins:

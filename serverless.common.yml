@@ -1,5 +1,22 @@
 app: crawler
 org: aljeshishe3
 
-custom:
-  s3_bucket: "crawler-data-bucket-khk3rkkds"
+parent:
+  app: crawler
+  org: aljeshishe3
+  stage: ${opt:stage, env:AWS_STAGE, 'stage4'}
+  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
+  frameworkVersion: '3'
+  stackName: ${self:parent.app}-${self:service}-${self:parent.stage}-stack
+  IMAGE_NAME: ${self:parent.app}-${self:service}
+  LOCAL_IMAGE: ${self:parent.IMAGE_NAME}:latest
+  # public
+  # REMOTE_MACHINE: public.ecr.aws/z5t6z9w7
+  # private
+  REMOTE_MACHINE: ${self:parent.AWS_ACCOUNT}.dkr.ecr.eu-central-1.amazonaws.com
+  REMOTE_IMAGE: ${self:parent.REMOTE_MACHINE}/${self:parent.LOCAL_IMAGE}
+  AWS_S3_BUCKET: ${self:parent.app}-bucket-${self:parent.stage}
+  AWS_REGION: eu-central-1
+  AWS_ACCOUNT: 958783559395
+  AWS_PROFILE: default
+  deploymentPrefix: prefix

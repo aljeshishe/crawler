@@ -1,9 +1,10 @@
-app: crawler
-org: aljeshishe3
+app: ${self:parent.app}
+org: ${self:parent.org}
 service: front
 useDotenv: true
+frameworkVersion: ${self:parent.frameworkVersion}
 
-frameworkVersion: '3'
+parent: ${file(../serverless.common.yml):parent}
 
 # TODO GARCHEV temporary comment, because wsgi removed wsgi_handler.py and
 #custom:
@@ -14,9 +15,11 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: python3.9
-  stage: ${opt:stage, env:AWS_STAGE, 'dev'}
-  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
+  stage: ${self:parent.stage}
+  region: ${self:parent.region}
   deploymentMethod: direct
+  stackName: ${self:parent.stackName}
+  deploymentPrefix: ${self:parent.deploymentPrefix}
   iam:
     role:
       statements:
@@ -24,12 +27,19 @@ provider:
           Action:
             - "s3:*"
           Resource: "*"
+  ecr:
+    images:
+      latest:
+        uri: ${self:parent.REMOTE_IMAGE}
 
 functions:
   api:
     events:
       - httpApi: '*'
-    image: ${env:REMOTE_IMAGE}
+    image: latest
+    environment:
+        AWS_S3_BUCKET: ${self:parent.AWS_S3_BUCKET}
+
 
 plugins:
   - serverless-offline

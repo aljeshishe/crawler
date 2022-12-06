@@ -1,23 +1,25 @@
-app: crawler
-org: aljeshishe3
+app: ${self:parent.app}
+org: ${self:parent.org}
+useDotenv: true
+frameworkVersion: ${self:parent.frameworkVersion}
 service: bucket
-frameworkVersion: '3'
 
-custom:
-  s3_bucket: ${file(../serverless.common.yml):custom.s3_bucket}
+parent: ${file(../serverless.common.yml):parent}
 
 provider:
   name: aws
-  stage: ${opt:stage, env:AWS_STAGE, 'dev'}
-  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
+  stage: ${self:parent.stage}
+  region: ${self:parent.region}
   deploymentMethod: direct
+  stackName: ${self:parent.stackName}
+  deploymentPrefix: ${self:parent.deploymentPrefix}
 
 resources:
   Resources:
     DataBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:custom.s3_bucket}
+        BucketName: ${self:parent.AWS_S3_BUCKET}
         # DeletionPolicy: Retain
 
 
