@@ -1,6 +1,6 @@
 import pytest
 
-from crawler.example import some_function
+from dashboards.example import some_function
 
 
 @pytest.mark.parametrize(('first', 'second', 'expected'), [

@@ -2,6 +2,7 @@ SHELL := /bin/bash
 # SHELL:=/usr/bin/env bash
 
 $(shell sls print --path parent | sed 's/: /=/g' > .env)
+export AWS_PAGER=""
 
 include .env
 export
@@ -9,7 +10,7 @@ export
 install:
 	# login and create private ECR repository if not exists
 	aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REMOTE_MACHINE}
-	aws ecr describe-repositories --repository-names ${IMAGE_NAME} || aws ecr create-repository --repository-name ${IMAGE_NAME}
+	aws ecr describe-repositories --repository-names ${REPO} || aws ecr create-repository --repository-name ${REPO}
 
 	# login and create public ECR repository if not exists
 	# aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${REMOTE_MACHINE}
@@ -43,7 +44,7 @@ all: build push deploy pdv
 
 .PHONY: lint
 lint:
-	poetry run mypy crawler tests/**/*.py
+	poetry run mypy dashboards tests/**/*.py
 	poetry run flake8 .
 	poetry run doc8 -q docs
 

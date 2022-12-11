@@ -32,7 +32,7 @@ def s3fs():
         }
     )
     print(fs.ls(''))
-    fs.read_bytes("crawler-data-7892h32/package.json")
+    fs.read_bytes("dashboards-data-7892h32/package.json")
     fs.write_text(f"s3://{AWS_S3_BUCKET}/myfile.txt", "Hello World")
     return
 

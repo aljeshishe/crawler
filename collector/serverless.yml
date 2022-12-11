@@ -1,6 +1,6 @@
 app: ${self:parent.app}
 org: ${self:parent.org}
-service: worker
+service: collector
 useDotenv: true
 frameworkVersion: ${self:parent.frameworkVersion}
 
@@ -32,7 +32,7 @@ provider:
       latest:
         uri: ${self:parent.REMOTE_IMAGE}
 functions:
-  worker:
+  function:
     image: latest
     events:
       - schedule: cron(0 12 * * ? *)

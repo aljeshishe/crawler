@@ -17,4 +17,4 @@ def invoke_function(service_name):
 
 if __name__ == "__main__":
     client = boto3.client('lambda')
-    invoke_function("dev-front")
+    invoke_function("stage5-front")

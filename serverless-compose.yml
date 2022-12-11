@@ -3,8 +3,8 @@ services:
   resources:
     path: resources
 
-  worker:
-    path: worker
+  collector:
+    path: collector
     dependsOn:
       - resources
 

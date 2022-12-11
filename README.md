@@ -1,8 +1,8 @@
-# crawler
+# dashboards
 
-[![Build Status](https://github.com/aljeshishe/crawler/workflows/test/badge.svg?branch=master&event=push)](https://github.com/aljeshishe/crawler/actions?query=workflow%3Atest)
-[![codecov](https://codecov.io/gh/aljeshishe/crawler/branch/master/graph/badge.svg)](https://codecov.io/gh/aljeshishe/crawler)
-[![Python Version](https://img.shields.io/pypi/pyversions/crawler.svg)](https://pypi.org/project/crawler/)
+[![Build Status](https://github.com/aljeshishe/dashboards/workflows/test/badge.svg?branch=master&event=push)](https://github.com/aljeshishe/dashboards/actions?query=workflow%3Atest)
+[![codecov](https://codecov.io/gh/aljeshishe/dashboards/branch/master/graph/badge.svg)](https://codecov.io/gh/aljeshishe/dashboards)
+[![Python Version](https://img.shields.io/pypi/pyversions/dashboards.svg)](https://pypi.org/project/dashboards/)
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 
 This is how python package should look like!
@@ -17,7 +17,7 @@ This is how python package should look like!
 ## Installation
 
 ```bash
-pip install crawler
+pip install dashboards
 ```
 
 
@@ -26,7 +26,7 @@ pip install crawler
 Showcase how your project can be used:
 
 ```python
-from crawler.example import some_function
+from dashboards.example import some_function
 
 print(some_function(3, 4))
 # => 7
@@ -34,7 +34,7 @@ print(some_function(3, 4))
 
 ## License
 
-[MIT](https://github.com/aljeshishe/crawler/blob/master/LICENSE)
+[MIT](https://github.com/aljeshishe/dashboards/blob/master/LICENSE)
 
 
 ## Credits

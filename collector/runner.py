@@ -6,8 +6,7 @@ import munch as munch
 import yaml
 
 
-def invoke_function(service, stage, function):
-    function_name = f"{service}-{stage}-{function}"
+def invoke_function(function_name):
     print(f"Executing function={function_name}")
     r = client.invoke(FunctionName=function_name, LogType="Tail")
 
@@ -27,4 +26,4 @@ if __name__ == "__main__":
     client = boto3.client('lambda')
     with Path("serverless.yml").open() as f:
         data = munch.munchify(yaml.safe_load(f))
-    invoke_function(service=data.service, stage="dev", function="worker")
+    invoke_function(function_name="collector-stage5-function")

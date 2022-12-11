@@ -2,6 +2,7 @@ SHELL := /bin/bash
 # SHELL:=/usr/bin/env bash
 
 $(shell sls print --path parent | sed 's/: /=/g' > .env)
+export AWS_PAGER=""
 
 include .env
 export
@@ -43,7 +44,7 @@ all: build push deploy pdv
 
 .PHONY: lint
 lint:
-	poetry run mypy crawler tests/**/*.py
+	poetry run mypy dashboards tests/**/*.py
 	poetry run flake8 .
 	poetry run doc8 -q docs
 
