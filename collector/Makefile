@@ -35,7 +35,7 @@ push:
 
 .PHONY: pdv
 pdv:
-	python runner.py
+	python pdv.py
 
 .PHONY: deploy
 deploy:
