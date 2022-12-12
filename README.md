@@ -15,9 +15,13 @@ This is how python package should look like!
 
 
 ## Installation
-
+docker login
 ```bash
-pip install dashboards
+
+npm install
+poetry install --only main
+poetry shell
+sls deploy --verbose
 ```
 
 
