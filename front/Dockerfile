@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:experimental
-FROM public.ecr.aws/lambda/python:3.8
+FROM public.ecr.aws/lambda/python:3.9
 
 
 ENV YOUR_ENV=production \

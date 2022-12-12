@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:experimental
-FROM public.ecr.aws/lambda/python:3.9.2022.11.30.08
+FROM public.ecr.aws/lambda/python:3.9
 
 
 ENV YOUR_ENV=production \
@@ -16,6 +16,6 @@ WORKDIR ${LAMBDA_TASK_ROOT}
 COPY requirements.txt ./
 RUN --mount=type=cache,mode=0777,target=/root/.cache pip install -r requirements.txt
 
-COPY handler.py ./
+COPY handler.py .env ./
 COPY src ./src
 CMD [ "handler.run" ]
