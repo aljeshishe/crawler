@@ -1,7 +1,7 @@
 parent:
   app: dashboards
   org: aljeshishe3
-  stage: ${opt:stage, env:AWS_STAGE, 'stage5'}
+  stage: ${opt:stage, env:AWS_STAGE, 'dev'}
   region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
   frameworkVersion: '3'
   stackName: ${self:parent.app}-${self:service}-${self:parent.stage}-stack
