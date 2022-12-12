@@ -1,13 +1,13 @@
 [[package]]
 name = "boto3"
-version = "1.26.23"
+version = "1.26.27"
 description = "The AWS SDK for Python"
 category = "main"
 optional = false
 python-versions = ">= 3.7"
 
 [package.dependencies]
-botocore = ">=1.29.23,<1.30.0"
+botocore = ">=1.29.27,<1.30.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.6.0,<0.7.0"
 
@@ -16,7 +16,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.29.23"
+version = "1.29.27"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
@@ -32,7 +32,7 @@ crt = ["awscrt (==0.15.3)"]
 
 [[package]]
 name = "certifi"
-version = "2022.9.24"
+version = "2022.12.7"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "main"
 optional = false
@@ -48,22 +48,6 @@ python-versions = ">=3.6.0"
 
 [package.extras]
 unicode-backport = ["unicodedata2"]
-
-[[package]]
-name = "common"
-version = "0.1.0"
-description = ""
-category = "main"
-optional = false
-python-versions = "^3.9"
-develop = false
-
-[package.dependencies]
-pyyaml = "^6.0"
-
-[package.source]
-type = "directory"
-url = "common"
 
 [[package]]
 name = "idna"
@@ -95,6 +79,17 @@ six = "*"
 [package.extras]
 testing = ["astroid (>=1.5.3,<1.6.0)", "astroid (>=2.0)", "coverage", "pylint (>=1.7.2,<1.8.0)", "pylint (>=2.3.1,<2.4.0)", "pytest"]
 yaml = ["PyYAML (>=5.1.0)"]
+
+[[package]]
+name = "pyaml"
+version = "21.10.1"
+description = "PyYAML-based module to produce pretty and readable YAML-serialized data"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+PyYAML = "*"
 
 [[package]]
 name = "python-dateutil"
@@ -170,27 +165,26 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.9"
-content-hash = "ea3c55c3c0e2abf4b2461462a40558aff694430304ab5584a6433fe380812458"
+python-versions = "^3.7"
+content-hash = "aa9da10dc0884b0e21ca417e53e9265b8a15e7699db9fb530dcb9c1af347347e"
 
 [metadata.files]
 boto3 = [
-    {file = "boto3-1.26.23-py3-none-any.whl", hash = "sha256:b466dd6e7b71babf145ae8c55b541bbcf5828df49ca022edb24657ae0b861e87"},
-    {file = "boto3-1.26.23.tar.gz", hash = "sha256:f478dde5a7e600e222c406bbf6cd2927371822d2b95a931c3ccb69eed18af83a"},
+    {file = "boto3-1.26.27-py3-none-any.whl", hash = "sha256:6d633563802065dba2ccab48c6cab3213ca2f672ade10d096db62f686f11ea9b"},
+    {file = "boto3-1.26.27.tar.gz", hash = "sha256:255a7565226c21c5d500f69aabb977e1ac07dbaf576f4428d00558e8e508a23b"},
 ]
 botocore = [
-    {file = "botocore-1.29.23-py3-none-any.whl", hash = "sha256:5ad03b4bedb5587fc75c7ecd29bf3477929791748cb533c8c57ab5289da84ac3"},
-    {file = "botocore-1.29.23.tar.gz", hash = "sha256:216400fa6736a335f5b5c643655cc7d69d0bf996eb4d21069373aa5aa84b5c10"},
+    {file = "botocore-1.29.27-py3-none-any.whl", hash = "sha256:03ead47c52c5caee4c69498a655444569e9d86c0e15e3884ce8c3eca01b4f658"},
+    {file = "botocore-1.29.27.tar.gz", hash = "sha256:0932b22d8737b11037adf7e734f9b90425b575d0757e4c1a035e99f382955221"},
 ]
 certifi = [
-    {file = "certifi-2022.9.24-py3-none-any.whl", hash = "sha256:90c1a32f1d68f940488354e36370f6cca89f0f106db09518524c88d6ed83f382"},
-    {file = "certifi-2022.9.24.tar.gz", hash = "sha256:0d9c601124e5a6ba9712dbc60d9c53c21e34f5f641fe83002317394311bdce14"},
+    {file = "certifi-2022.12.7-py3-none-any.whl", hash = "sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18"},
+    {file = "certifi-2022.12.7.tar.gz", hash = "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3"},
 ]
 charset-normalizer = [
     {file = "charset-normalizer-2.1.1.tar.gz", hash = "sha256:5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845"},
     {file = "charset_normalizer-2.1.1-py3-none-any.whl", hash = "sha256:83e9a75d1911279afd89352c68b45348559d1fc0506b054b346651b5e7fee29f"},
 ]
-common = []
 idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
     {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
@@ -202,6 +196,10 @@ jmespath = [
 munch = [
     {file = "munch-2.5.0-py2.py3-none-any.whl", hash = "sha256:6f44af89a2ce4ed04ff8de41f70b226b984db10a91dcc7b9ac2efc1c77022fdd"},
     {file = "munch-2.5.0.tar.gz", hash = "sha256:2d735f6f24d4dba3417fa448cae40c6e896ec1fdab6cdb5e6510999758a4dbd2"},
+]
+pyaml = [
+    {file = "pyaml-21.10.1-py2.py3-none-any.whl", hash = "sha256:19985ed303c3a985de4cf8fd329b6d0a5a5b5c9035ea240eccc709ebacbaf4a0"},
+    {file = "pyaml-21.10.1.tar.gz", hash = "sha256:c6519fee13bf06e3bb3f20cacdea8eba9140385a7c2546df5dbae4887f768383"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
