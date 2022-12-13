@@ -1,13 +1,13 @@
 [[package]]
 name = "boto3"
-version = "1.26.27"
+version = "1.26.28"
 description = "The AWS SDK for Python"
 category = "main"
 optional = false
 python-versions = ">= 3.7"
 
 [package.dependencies]
-botocore = ">=1.29.27,<1.30.0"
+botocore = ">=1.29.28,<1.30.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.6.0,<0.7.0"
 
@@ -16,7 +16,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.29.27"
+version = "1.29.28"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
@@ -166,16 +166,16 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "aa9da10dc0884b0e21ca417e53e9265b8a15e7699db9fb530dcb9c1af347347e"
+content-hash = "3217ae62a26c0bfb55086a44bfd37e7e84285ec40f6cb93cfed1dfbc4074ebd3"
 
 [metadata.files]
 boto3 = [
-    {file = "boto3-1.26.27-py3-none-any.whl", hash = "sha256:6d633563802065dba2ccab48c6cab3213ca2f672ade10d096db62f686f11ea9b"},
-    {file = "boto3-1.26.27.tar.gz", hash = "sha256:255a7565226c21c5d500f69aabb977e1ac07dbaf576f4428d00558e8e508a23b"},
+    {file = "boto3-1.26.28-py3-none-any.whl", hash = "sha256:548081a0f8854bb2eea1e368ab29945478105f56989546f653c75528dcb07d88"},
+    {file = "boto3-1.26.28.tar.gz", hash = "sha256:53badfc5f145b8a3f9117512b41bc5a64db1cce1b549061d8edba68909e63fdf"},
 ]
 botocore = [
-    {file = "botocore-1.29.27-py3-none-any.whl", hash = "sha256:03ead47c52c5caee4c69498a655444569e9d86c0e15e3884ce8c3eca01b4f658"},
-    {file = "botocore-1.29.27.tar.gz", hash = "sha256:0932b22d8737b11037adf7e734f9b90425b575d0757e4c1a035e99f382955221"},
+    {file = "botocore-1.29.28-py3-none-any.whl", hash = "sha256:982732e7ed65cb6ed11ea3ce0e32dff2bcd465836c32376154f0802aa0a112c7"},
+    {file = "botocore-1.29.28.tar.gz", hash = "sha256:f0b8bb976e368dea20a960b47169e31fc0828feb6f0b9f59f1e5be8d08919b10"},
 ]
 certifi = [
     {file = "certifi-2022.12.7-py3-none-any.whl", hash = "sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18"},
