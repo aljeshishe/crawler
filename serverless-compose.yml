@@ -5,11 +5,11 @@ services:
 
   collector:
     path: collector
-    dependsOn:
-      - resources
+#    dependsOn:
+#      - resources
 
   front:
     path: front
-    dependsOn:
-      - resources
+#    dependsOn:
+#      - resources
 

@@ -1,9 +1,6 @@
-import os
+import json
 import subprocess
 from pathlib import Path
-
-import yaml
-import sys
 
 
 def unwrap(d, keys=[]):
@@ -20,9 +17,9 @@ def unwrap(d, keys=[]):
 class Config:
     @classmethod
     def from_serverless(cls):
-        result = subprocess.run(["serverless", "print"], check=True, stdout=subprocess.PIPE)
-        print(f"yaml2env result:\n{result.stdout}")
-        config = yaml.load(result.stdout, Loader=yaml.FullLoader)
+        result = subprocess.run(["serverless", "print", "--format json"], check=True, stdout=subprocess.PIPE)
+        print(f"json2env result:\n{result.stdout}")
+        config = json.loads(result.stdout)
         return cls(config)
 
     def __init__(self, config):
