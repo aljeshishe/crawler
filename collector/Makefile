@@ -6,6 +6,11 @@ include .env
 export AWS_PAGER=""
 
 export
+
+.PHONY: logs
+logs:
+	sls logs --function function
+
 .PHONY: install
 install:
 	# login and create private ECR repository if not exists

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "worker"
+name = "collector"
 version = "0.1.0"
 description = ""
 authors = ["alexeygrachev <agrachev@cindicator.com>"]
@@ -12,11 +12,10 @@ pandas = "^1.5.2"
 boto3 = "^1.26.16"
 pyaml = "^21.10.1"
 munch = "^2.5.0"
-
+python-dotenv = "^0.21.0"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
-common = {path=".."}
 
 [build-system]
 requires = ["poetry-core"]
