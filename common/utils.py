@@ -19,11 +19,13 @@ def invoke_api_endpoint(service_name, timeout=30):
     start_time = time.time()
     while time.time() - start_time < timeout:
         resp = requests.get(url)
+        if resp.status_code == 200:
+            print(f"OK")
+            return
         if resp.status_code == 500:
             print("Response 500. Retrying...")
             continue
-        resp.raise_for_status()
-    print(f"OK")
+    resp.raise_for_status()
 
 
 def invoke_function(function_name):
