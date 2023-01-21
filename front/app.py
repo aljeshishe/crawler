@@ -11,7 +11,7 @@ from settings import settings
 
 
 def read_data():
-    key = f'data.csv'
+    key = f'hh.csv'
     s3_client = boto3.client("s3")
     try:
         response = s3_client.get_object(Bucket=settings.AWS_S3_BUCKET, Key=key)
@@ -19,7 +19,7 @@ def read_data():
         assert status_code == 200, f"HTTPStatusCode={status_code} expected:200"
         df = pd.read_csv(io.BytesIO(response["Body"].read()))
     except s3_client.exceptions.NoSuchKey as e:
-        df = pd.DataFrame(columns=['dt', 'count'])
+        df = pd.DataFrame(columns=['dt', 'value', "name"])
     return df
 
 server = Flask(__name__)
@@ -38,8 +38,11 @@ mapbox_style = "mapbox://styles/plotlymapbox/cjvprkf3t1kns1cqjxuxmwixz"
 
 df = read_data()
 df["dt"] = pd.to_datetime(df["dt"])
-df = df.set_index('dt').resample("D").mean()
-figure = px.line(df, x=df.index, y="count")
+df.set_index('dt').groupby("name").resample("D").mean().reset_index()
+figure = px.line(df, x="dt", y="value", color="name")
+
+
+
 
 app.layout = html.Div(
     id="root",

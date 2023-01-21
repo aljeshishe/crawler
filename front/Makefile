@@ -45,6 +45,10 @@ deploy:
 remove:
 	sls remove
 
+.PHONY: logs
+logs:
+	sls logs --function front
+
 .PHONY: full_deploy
 full_deploy: install build push deploy pdv
 

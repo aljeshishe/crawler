@@ -144,9 +144,9 @@ pandas==1.5.2 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:e7469271497960b6a781eaa930cba8af400dd59b62ec9ca2f4d31a19f2f91090 \
     --hash=sha256:e9dbacd22555c2d47f262ef96bb4e30880e5956169741400af8b306bbb24a273 \
     --hash=sha256:f6257b314fc14958f8122779e5a1557517b0f8e500cfb2bd53fa1f75a8ad0af2
-plotly==5.11.0 ; python_version >= "3.8" and python_version < "4.0" \
-    --hash=sha256:4efef479c2ec1d86dcdac8405b6ca70ca65649a77408e39a7e84a1ea2db6c787 \
-    --hash=sha256:52fd74b08aa4fd5a55b9d3034a30dbb746e572d7ed84897422f927fdf687ea5f
+plotly==5.12.0 ; python_version >= "3.8" and python_version < "4.0" \
+    --hash=sha256:8bf1b37a1e3cb260a4aa77ab79c9db4fd0ad3ccd66463c3a3e8a5300196ec61e \
+    --hash=sha256:ed8136cc084386044e6e3353d74ad4888b85efa1fa4d1c98fe0f97becb0507a9
 pydantic[dotenv]==1.10.2 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:05e00dbebbe810b33c7a7362f231893183bcc4251f3f2ff991c31d5c08240c42 \
     --hash=sha256:06094d18dd5e6f2bbf93efa54991c3240964bb663b87729ac340eb5014310624 \
