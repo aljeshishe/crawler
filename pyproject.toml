@@ -24,7 +24,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-boto3 = "^1.26.27"
+boto3 = "^1.26.60"
 pyaml = "^21.10.1"
 requests = "^2.28.1"
 munch = "^2.5.0"
