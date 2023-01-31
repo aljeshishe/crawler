@@ -3,6 +3,7 @@ import uuid
 from pathlib import Path
 
 import boto3
+from botocore.exceptions import ClientError
 
 
 class S3Bucket:
@@ -16,6 +17,15 @@ class S3Bucket:
         file_path = Path(f"/tmp/dashboards/{uuid.uuid4()}")
         file_path.parent.mkdir(parents=True, exist_ok=True)
         return file_path
+
+    def file_exists(self, file_name: str) -> bool:
+        try:
+            self.bucket.Object(file_name).load()
+            return True
+        except ClientError as e:
+            if e.response["Error"]["Code"] == "404":
+                return False
+            raise
 
     def download_file(self, file_name: str) -> Path:
         dst_path = self.tmp_file_path()
