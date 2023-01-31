@@ -55,3 +55,7 @@ full_deploy: install build push deploy pdv
 .PHONY: full_remove
 full_remove: remove uninstall
 
+.PHONY: test
+test:
+	pytest
+

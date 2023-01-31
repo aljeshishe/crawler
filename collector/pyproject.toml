@@ -13,9 +13,11 @@ boto3 = "^1.26.16"
 pyaml = "^21.10.1"
 munch = "^2.5.0"
 python-dotenv = "^0.21.0"
+jsonpath-ng = "^1.5.3"
 
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
+pytest = "^7.2.1"
 
 [build-system]
 requires = ["poetry-core"]
