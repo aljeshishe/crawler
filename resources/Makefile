@@ -10,10 +10,11 @@ remove:
 
 .PHONY: backup_data
 backup_data:
-	BACKUP_DIR=$(shell date +%Y-%m-%d_%H-%M-%S); \
-	echo $$BACKUP_DIR; \
-	mkdir -p ./$$BACKUP_DIR; \
-	aws s3 cp s3://dashboards-bucket-dev/data.csv $$BACKUP_DIR/data.csv
+	BACKUP_DIR=$(shell date +%Y-%m-%d_%H-%M-%S) && \
+	echo $$BACKUP_DIR && \
+	mkdir -p ./$$BACKUP_DIR  && \
+	aws s3 cp s3://dashboards-bucket-dev/hh.csv $$BACKUP_DIR/hh.csv  && \
+	aws s3 cp s3://dashboards-bucket-dev/linkedin.csv $$BACKUP_DIR/linkedin.csv
 
 
 .PHONY: remove_data
