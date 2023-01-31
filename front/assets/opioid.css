@@ -258,6 +258,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     margin-bottom: 0;
     font-weight: 300;
+    font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans;
 }
 
 h1 {
@@ -284,7 +285,6 @@ h3 {
 }
 
 h4 {
-    font-family: "Playfair Display", sans-serif;
     font-size: 4rem;
     line-height: 1.35;
     letter-spacing: -.08rem;
@@ -313,7 +313,7 @@ p {
 }
 
 #heatmap-title {
-    font-family: "Playfair Display", sans-serif;
+    font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans;
     font-size: 2rem;
 }
 
