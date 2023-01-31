@@ -73,9 +73,9 @@ app.layout = html.Div(
                         html.Div(
                             id="heatmap-container",
                             children=[
-                                html.P(f"hh.ru statistics", id="heatmap-title",),
+                                html.P(f"hh.ru statistics"),
                                 dcc.Graph(id='hh-graph', figure=hh_figure),
-                                html.P(f"linkedin.com statistics", id="heatmap-title", ),
+                                html.P(f"linkedin.com statistics"),
                                 dcc.Graph(id='linkedin-graph', figure=linkedin_figure)
                             ],
                         ),
