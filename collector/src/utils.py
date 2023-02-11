@@ -3,7 +3,9 @@ import uuid
 from pathlib import Path
 
 import boto3
+import sentry_sdk
 from botocore.exceptions import ClientError
+from loguru import logger
 
 
 class S3Bucket:
@@ -34,3 +36,18 @@ class S3Bucket:
 
     def upload_file(self, src_path: Path, dst_file: str) -> None:
         self.bucket.upload_file(src_path.as_posix(), dst_file)
+
+
+def init_sentry():
+    sentry_sdk.init(
+        dsn="https://427075d336a042fdbc83c6f7499de777@o4504660828225536.ingest.sentry.io/4504660833009664",
+
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production.
+        traces_sample_rate=1.0
+    )
+
+
+def exception_safe(func):
+    return logger.catch(onerror=lambda ex: sentry_sdk.capture_exception(ex))(func)

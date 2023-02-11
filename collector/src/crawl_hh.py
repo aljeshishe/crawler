@@ -1,22 +1,25 @@
-import logging
 import re
 from datetime import datetime
 
 import dotenv
 import pandas as pd
 import requests
+from loguru import logger
 
+from src import utils
 from src.utils import S3Bucket
 
 dotenv.load_dotenv()
-log = logging.getLogger(__name__)
 FILE_NAME = "hh.csv"
 
 
+@utils.exception_safe
 def process(name, url):
+    logger.info(f"Processing {name} {url}")
     result = get_data(url)
-    print(f"{name}: vacancies found: {result}")
+    logger.info(f"{name}: vacancies found: {result}")
     store(name, result)
+
 
 def store(name, result):
     s3 = S3Bucket()
@@ -38,6 +41,7 @@ def get_data(url):
     return result
 
 
+@utils.exception_safe
 def handler():
     process(name="python_petersburg_and_others",
             url="https://hh.ru/search/vacancy?text=python&salary=&clusters=true&area=1001&area=2&ored_clusters=true&enable_snippets=true")
