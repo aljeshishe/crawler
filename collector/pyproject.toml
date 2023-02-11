@@ -19,6 +19,10 @@ jsonpath-ng = "^1.5.3"
 jupyter = "^1.0.0"
 pytest = "^7.2.1"
 
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
+pytest = "^7.2.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
