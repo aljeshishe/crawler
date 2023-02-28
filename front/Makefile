@@ -1,7 +1,9 @@
 SHELL := /bin/bash
 # SHELL:=/usr/bin/env bash
 
-$(shell sls print --path parent | sed 's/: /=/g' > .env)
+# convert json -> yaml -> .env
+# If print to yaml directly there could be line split and incorrect values in .env
+$(shell  sls print --path parent --format json | yq -p json | sed 's/: /=/g' > .env)
 include .env
 
 export AWS_PAGER=""
