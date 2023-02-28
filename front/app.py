@@ -17,9 +17,12 @@ def read_data(file):
         status_code = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
         assert status_code == 200, f"HTTPStatusCode={status_code} expected:200"
         df = pd.read_csv(io.BytesIO(response["Body"].read()))
-    except s3_client.exceptions.NoSuchKey as e:
+        df["dt"] = pd.to_datetime(df["dt"])
+        df = df.set_index('dt').groupby("name").resample("D").mean().reset_index()
+    except (s3_client.exceptions.NoSuchKey, s3_client.exceptions.NoSuchBucket) as e:
         df = pd.DataFrame(columns=['dt', 'value', "name"])
     return df
+
 
 server = Flask(__name__)
 app = dash.Dash(
@@ -31,21 +34,14 @@ app = dash.Dash(
 )
 app.title = "hh.ru python developers count"
 
-
 mapbox_access_token = "pk.eyJ1IjoicGxvdGx5bWFwYm94IiwiYSI6ImNrOWJqb2F4djBnMjEzbG50amg0dnJieG4ifQ.Zme1-Uzoi75IaFbieBDl3A"
 mapbox_style = "mapbox://styles/plotlymapbox/cjvprkf3t1kns1cqjxuxmwixz"
 
 df = read_data(file="hh.csv")
-df["dt"] = pd.to_datetime(df["dt"])
-df.set_index('dt').groupby("name").resample("D").mean().reset_index()
 hh_figure = px.line(df, x="dt", y="value", color="name")
 
 df = read_data(file="linkedin.csv")
-df["dt"] = pd.to_datetime(df["dt"])
-df.set_index('dt').groupby("name").resample("D").mean().reset_index()
 linkedin_figure = px.line(df, x="dt", y="value", color="name")
-
-
 
 app.layout = html.Div(
     id="root",
