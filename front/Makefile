@@ -35,9 +35,13 @@ push:
 	docker tag ${LOCAL_IMAGE} ${REMOTE_IMAGE}
 	docker push ${REMOTE_IMAGE}
 
+.PHONY: cisetup
+cisetup:
+	poetry install --only dev
+
 .PHONY: pdv
-pdv:
-	python pdv.py
+pdv: cisetup
+	poetry run python pdv.py
 
 .PHONY: deploy
 deploy:
