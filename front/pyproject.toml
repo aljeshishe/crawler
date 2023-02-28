@@ -16,6 +16,9 @@ pydantic = {extras = ["dotenv"], version = "^1.10.2"}
 requests = "^2.28.1"
 
 
+[tool.poetry.group.dev.dependencies]
+common = {path = "../common"}
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

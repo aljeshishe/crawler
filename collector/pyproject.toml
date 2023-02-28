@@ -20,6 +20,7 @@ sentry-sdk = "^1.15.0"
 [tool.poetry.group.dev.dependencies]
 jupyter = "^1.0.0"
 pytest = "^7.2.1"
+common = {path = "../common"}
 
 [build-system]
 requires = ["poetry-core"]
