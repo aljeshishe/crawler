@@ -41,30 +41,18 @@ pdv:
 deploy:
 	sls deploy
 
-.PHONY: all
-all: build push deploy pdv
+.PHONY: remove
+remove:
+	sls remove
 
-.PHONY: lint
-lint:
-	poetry run mypy dashboards tests/**/*.py
-	poetry run flake8 .
-	poetry run doc8 -q docs
+.PHONY: logs
+logs:
+	sls logs --function front
 
-.PHONY: unit
-unit:
-	poetry run pytest
+.PHONY: full_deploy
+full_deploy: install build push deploy pdv
 
-.PHONY: package
-package:
-	poetry check
-	poetry run pip check
-	poetry run safety check --full-report
-
-.PHONY: test
-test: lint package unit
-
-.DEFAULT:
-	@cd docs && $(MAKE) $@
-
+.PHONY: full_remove
+full_remove: remove uninstall
 
 

@@ -15,7 +15,5 @@ WORKDIR ${LAMBDA_TASK_ROOT}
 
 COPY requirements.txt ./
 RUN --mount=type=cache,mode=0777,target=/root/.cache pip install -r requirements.txt
-
-COPY handler.py .env ./
-COPY src ./src
+COPY . ./
 CMD [ "handler.run" ]

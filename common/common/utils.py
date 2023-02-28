@@ -1,5 +1,6 @@
 import base64
 import logging
+import time
 
 import boto3
 import requests
@@ -7,16 +8,24 @@ import requests
 log = logging.getLogger(__name__)
 
 
-def invoke_api_endpoint(service_name):
+def invoke_api_endpoint(service_name, timeout=30):
     client = boto3.client("apigatewayv2")
     response = client.get_apis()
     apis = response["Items"]
     api = next(api for api in apis if api["Name"] == service_name)
     url = api["ApiEndpoint"]
+
     print(f"Calling {url}")
-    resp = requests.get(url)
+    start_time = time.time()
+    while time.time() - start_time < timeout:
+        resp = requests.get(url)
+        if resp.status_code == 200:
+            print(f"OK")
+            return
+        if resp.status_code == 500:
+            print("Response 500. Retrying...")
+            continue
     resp.raise_for_status()
-    print(f"OK")
 
 
 def invoke_function(function_name):

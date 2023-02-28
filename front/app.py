@@ -10,16 +10,15 @@ from flask import Flask
 from settings import settings
 
 
-def read_data():
-    key = f'data.csv'
+def read_data(file):
     s3_client = boto3.client("s3")
     try:
-        response = s3_client.get_object(Bucket=settings.AWS_S3_BUCKET, Key=key)
+        response = s3_client.get_object(Bucket=settings.AWS_S3_BUCKET, Key=file)
         status_code = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
         assert status_code == 200, f"HTTPStatusCode={status_code} expected:200"
         df = pd.read_csv(io.BytesIO(response["Body"].read()))
     except s3_client.exceptions.NoSuchKey as e:
-        df = pd.DataFrame(columns=['dt', 'count'])
+        df = pd.DataFrame(columns=['dt', 'value', "name"])
     return df
 
 server = Flask(__name__)
@@ -36,10 +35,17 @@ app.title = "hh.ru python developers count"
 mapbox_access_token = "pk.eyJ1IjoicGxvdGx5bWFwYm94IiwiYSI6ImNrOWJqb2F4djBnMjEzbG50amg0dnJieG4ifQ.Zme1-Uzoi75IaFbieBDl3A"
 mapbox_style = "mapbox://styles/plotlymapbox/cjvprkf3t1kns1cqjxuxmwixz"
 
-df = read_data()
+df = read_data(file="hh.csv")
 df["dt"] = pd.to_datetime(df["dt"])
-df = df.set_index('dt').resample("D").mean()
-figure = px.line(df, x=df.index, y="count")
+df.set_index('dt').groupby("name").resample("D").mean().reset_index()
+hh_figure = px.line(df, x="dt", y="value", color="name")
+
+df = read_data(file="linkedin.csv")
+df["dt"] = pd.to_datetime(df["dt"])
+df.set_index('dt').groupby("name").resample("D").mean().reset_index()
+linkedin_figure = px.line(df, x="dt", y="value", color="name")
+
+
 
 app.layout = html.Div(
     id="root",
@@ -51,15 +57,7 @@ app.layout = html.Div(
                     html.Img(id="logo", src=app.get_asset_url("dash-logo.png")),
                     href="https://plotly.com/dash/",
                 ),
-                html.A(
-                    html.Button("Enterprise Demo", className="link-button"),
-                    href="https://plotly.com/get-demo/",
-                ),
-                html.A(
-                    html.Button("Source Code", className="link-button"),
-                    href="https://github.com/plotly/dash-sample-apps/tree/main/apps/dash-opioid-epidemic",
-                ),
-                html.H4(children="hh.ru python developers count"),
+                html.H4(children="Statistics dashboard"),
                 html.P(
                     id="description",
                     children=dcc.Markdown(),
@@ -75,14 +73,10 @@ app.layout = html.Div(
                         html.Div(
                             id="heatmap-container",
                             children=[
-                                html.P(
-                                    f"Heatmap of age adjusted mortality rates from poisonings in year",
-                                    id="heatmap-title",
-                                ),
-                                dcc.Graph(
-                                    id='example-graph',
-                                    figure=figure
-                                )
+                                html.P(f"hh.ru statistics"),
+                                dcc.Graph(id='hh-graph', figure=hh_figure),
+                                html.P(f"linkedin.com statistics"),
+                                dcc.Graph(id='linkedin-graph', figure=linkedin_figure)
                             ],
                         ),
                     ],

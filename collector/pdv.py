@@ -1,4 +1,4 @@
-from common.utils import invoke_function
+import common.utils
 
 if __name__ == "__main__":
-    invoke_function(function_name="collector-stage5-function")
+    common.utils.invoke_function(function_name="collector-dev-function")

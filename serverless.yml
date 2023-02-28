@@ -1,0 +1,75 @@
+app: dashboards
+org: aljeshishe3
+service: dashboards
+
+parent:
+  app: dashboards
+  org: aljeshishe3
+  stage: ${opt:stage, env:AWS_STAGE, 'dev'}
+  region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
+  frameworkVersion: '3'
+  REMOTE_MACHINE: ${self:parent.AWS_ACCOUNT}.dkr.ecr.eu-central-1.amazonaws.com
+  AWS_S3_BUCKET: ${self:parent.app}-bucket-${self:parent.stage}
+  AWS_REGION: eu-central-1
+  AWS_ACCOUNT: 958783559395
+  AWS_PROFILE: default
+  deploymentPrefix: prefix
+
+
+
+provider:
+  name: aws
+  runtime: python3.9
+  stage: ${self:parent.stage}
+  region: ${self:parent.region}
+  deploymentMethod: direct
+  stackName: ${self:parent.app}-${self:parent.stage}-stack
+  deploymentPrefix: ${self:parent.deploymentPrefix}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "*"
+  ecr:
+    images:
+      front_image:
+#        path: ./front
+        uri: ${self:functions.front.REMOTE_IMAGE}
+      collector_image:
+#        path: ./collector
+        uri: ${self:functions.collector.REMOTE_IMAGE}
+
+functions:
+  collector:
+    image: ${self:provider.ecr.images.collector_image.uri}
+    # image: collector_image
+    events:
+      - schedule: cron(0 12 * * ? *)
+    IMAGE_NAME: ${self:parent.app}-collector
+    LOCAL_IMAGE: ${self:functions.collector.IMAGE_NAME}:latest
+    REMOTE_IMAGE: ${self:parent.REMOTE_MACHINE}/${self:functions.collector.LOCAL_IMAGE}
+
+  front:
+    image: ${self:provider.ecr.images.front_image.uri}
+    # image: front_image
+    # name: ${app}-${sls:stage}-${self:service}
+    events:
+      - httpApi: '*'
+    IMAGE_NAME: ${self:parent.app}-front
+    LOCAL_IMAGE: ${self:functions.front.IMAGE_NAME}:latest
+    REMOTE_IMAGE: ${self:parent.REMOTE_MACHINE}/${self:functions.front.LOCAL_IMAGE}
+
+
+resources:
+  Resources:
+    DataBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:parent.AWS_S3_BUCKET}
+        # DeletionPolicy: Retain
+
+plugins:
+  - serverless-offline
+
+
+

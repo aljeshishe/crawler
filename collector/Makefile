@@ -1,5 +1,4 @@
 SHELL := /bin/bash
-# SHELL:=/usr/bin/env bash
 
 $(shell sls print --path parent | sed 's/: /=/g' > .env)
 include .env
@@ -7,6 +6,11 @@ include .env
 export AWS_PAGER=""
 
 export
+
+.PHONY: logs
+logs:
+	sls logs --function function
+
 .PHONY: install
 install:
 	# login and create private ECR repository if not exists
@@ -41,30 +45,17 @@ pdv:
 deploy:
 	sls deploy
 
-.PHONY: all
-all: build push deploy pdv
+.PHONY: remove
+remove:
+	sls remove
 
-.PHONY: lint
-lint:
-	poetry run mypy dashboards tests/**/*.py
-	poetry run flake8 .
-	poetry run doc8 -q docs
+.PHONY: full_deploy
+full_deploy: install build push deploy pdv
 
-.PHONY: unit
-unit:
-	poetry run pytest
-
-.PHONY: package
-package:
-	poetry check
-	poetry run pip check
-	poetry run safety check --full-report
+.PHONY: full_remove
+full_remove: remove uninstall
 
 .PHONY: test
-test: lint package unit
-
-.DEFAULT:
-	@cd docs && $(MAKE) $@
-
-
+test:
+	pytest
 

@@ -33,7 +33,8 @@ provider:
         uri: ${self:parent.REMOTE_IMAGE}
 
 functions:
-  api:
+  front:
+    # name: ${app}-${sls:stage}-${self:service}
     events:
       - httpApi: '*'
     image: latest

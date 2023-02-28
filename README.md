@@ -21,7 +21,8 @@ docker login
 npm install
 poetry install --only main
 poetry shell
-sls deploy --verbose
+npm install -g serverless-offline --save-dev 
+make full_deploy
 ```
 
 
