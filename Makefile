@@ -3,7 +3,7 @@ echo_target=@echo -n '[$@]: ' && echo $(1) && echo -n '[$@]: ' && $(1)
 
 SUBDIRS = resources collector front
 
-import .env.secrets
+include .secretenv
 export
 
 ifneq ($(dir),)
