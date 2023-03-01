@@ -10,8 +10,6 @@ ifneq ($(dir),)
 SUBDIRS := $(dir)
 endif
 
-
-
 .PHONY: full_deploy
 full_deploy:
 	for dir in $(SUBDIRS); do \
