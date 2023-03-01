@@ -23,7 +23,7 @@ def process(name, url):
 
 def store(name, result):
     s3 = S3Bucket()
-     if s3.file_exists(FILE_NAME):
+    if s3.file_exists(FILE_NAME):
         in_file_path = s3.download_file(FILE_NAME)
         df = pd.read_csv(in_file_path)
     else:
