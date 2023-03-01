@@ -1,5 +1,11 @@
 SHELL := /bin/bash
 
+# convert json -> yaml -> .env
+# If print to yaml directly there could be line split and incorrect values in .env
+$(shell  sls print --path parent --format json | yq -p json | sed 's/: /=/g' > .env)
+include .env
+
+
 .PHONY: deploy
 deploy:
 	sls deploy
@@ -16,7 +22,7 @@ backup_data:
 	echo Backup to: $$BACKUP_DIR && \
 	mkdir -p ./$$BACKUP_DIR  && \
 	for FILE in $(FILES); do \
-		aws s3 cp s3://dashboards-bucket-dev/$$FILE $$BACKUP_DIR/$$FILE; \
+		aws s3 cp s3://${AWS_S3_BUCKET}/$$FILE $$BACKUP_DIR/$$FILE; \
 	done
 
 
@@ -29,13 +35,13 @@ endif
 
 	echo Restoring from: $$FROM && \
 	for FILE in $(FILES); do \
-		aws s3 cp $$FROM/$$FILE s3://dashboards-bucket-dev/$$FILE ; \
+		aws s3 cp $$FROM/$$FILE s3://${AWS_S3_BUCKET}/$$FILE ; \
 	done
 
 
 .PHONY: remove_data
 remove_data:
-	aws s3 rb s3://dashboards-bucket-dev --force
+	aws s3 rb s3://${AWS_S3_BUCKET} --force
 
 
 .PHONY: full_deploy
