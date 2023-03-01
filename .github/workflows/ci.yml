@@ -1,0 +1,27 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: bahmutov/npm-install@v1
+    - run: npm install -g serverless
+    - run: printenv | sort
+#    - name: Git Secret Reveal Step
+#      uses: entrostat/git-secret-action@v3.3.0
+#      with:
+#        gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+#        # The passphrase is optional, you can leave
+#        # the line below out if you don't have one
+#        gpg-private-key-passphrase: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+
+    - name: Run ci
+      run: make ci
+

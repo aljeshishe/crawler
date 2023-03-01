@@ -54,27 +54,10 @@ jb:
 .PHONY: j
 j: ja jb
 
+.PHONY: ci
+ci: full_deploy full_remove
 
-.PHONY: lint
-lint:
-	poetry run mypy dashboards tests/**/*.py
-	poetry run flake8 .
-	poetry run doc8 -q docs
-
-.PHONY: unit
-unit:
-	poetry run pytest
-
-.PHONY: package
-package:
-	poetry check
-	poetry run pip check
-	poetry run safety check --full-report
-
-.PHONY: test
-test: lint package unit
-
-.DEFAULT:
-	@cd docs && $(MAKE) $@
+#.DEFAULT:
+#	@cd docs && $(MAKE) $@
 
 
