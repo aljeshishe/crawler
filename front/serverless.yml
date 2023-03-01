@@ -18,8 +18,14 @@ provider:
   stage: ${self:parent.stage}
   region: ${self:parent.region}
   deploymentMethod: direct
-  stackName: ${self:parent.stackName}
+  stackName: ${self:parent.full_service_name}-stack
   deploymentPrefix: ${self:parent.deploymentPrefix}
+
+  tags:
+    key: tagGrachev
+  stackTags:
+    key: stackTagGrachev
+
   iam:
     role:
       statements:
@@ -33,13 +39,13 @@ provider:
         uri: ${self:parent.REMOTE_IMAGE}
 
 functions:
-  front:
-    # name: ${app}-${sls:stage}-${self:service}
+  func:
+    name: ${self:parent.full_service_name}-func
     events:
       - httpApi: '*'
     image: latest
     environment:
-        AWS_S3_BUCKET: ${self:parent.AWS_S3_BUCKET}
+      AWS_S3_BUCKET: ${self:parent.AWS_S3_BUCKET}
 
 
 plugins:

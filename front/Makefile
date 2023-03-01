@@ -53,7 +53,7 @@ remove:
 
 .PHONY: logs
 logs:
-	sls logs --function front
+	sls logs --function func
 
 .PHONY: full_deploy
 full_deploy: install build push deploy pdv
