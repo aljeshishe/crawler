@@ -213,3 +213,6 @@ fabric.properties
 
 # pyenv
 .python-version
+.gitsecret/keys/random_seed
+!*.secret
+.secretenv
