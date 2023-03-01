@@ -4,7 +4,7 @@ parent:
   stage: ${opt:stage, env:AWS_STAGE, 'dev'}
   region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
   frameworkVersion: '3'
-  stackName: ${self:parent.app}-${self:service}-${self:parent.stage}-stack
+  full_service_name: ${self:parent.app}-${self:service}-${self:parent.stage}
   IMAGE_NAME: ${self:parent.app}-${self:service}
   LOCAL_IMAGE: ${self:parent.IMAGE_NAME}:latest
   # public
