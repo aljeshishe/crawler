@@ -1,7 +1,7 @@
 parent:
   app: dashboards
   org: aljeshishe3
-  stage: ${opt:stage, env:AWS_STAGE, 'citest'}
+  stage: ${opt:stage, env:AWS_STAGE, 'cicd'}
   region: ${opt:region, env:AWS_REGION, 'eu-central-1'}
   frameworkVersion: '3'
   full_service_name: ${self:parent.app}-${self:service}-${self:parent.stage}
