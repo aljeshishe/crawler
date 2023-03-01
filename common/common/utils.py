@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 
 
 def dot_env_config():
-    return dotenv_values(".env")
+    return dotenv_values()
 
 
 def invoke_api_endpoint(service_name, timeout=30):
