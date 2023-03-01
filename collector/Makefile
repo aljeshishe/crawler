@@ -19,15 +19,15 @@ install:
 	aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REMOTE_MACHINE}
 	aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
 	#
-	aws ecr describe-repositories --repository-names ${IMAGE_NAME} || aws ecr create-repository --repository-name ${IMAGE_NAME}
+	aws ecr describe-repositories --repository-names ${REPO_NAME} || aws ecr create-repository --repository-name ${REPO_NAME}
 
 	# login and create public ECR repository if not exists
-	# aws ecr-public create-repository --repository-name ${IMAGE_NAME} --region us-east-1 || true
+	# aws ecr-public create-repository --repository-name ${REPO_NAME} --region us-east-1 || true
 
 .PHONY: uninstall
 uninstall:
-	aws ecr list-images --repository-name ${IMAGE_NAME} --query 'imageIds[*][imageDigest]' --output text | while read imageId; do aws ecr batch-delete-image --repository-name ${IMAGE_NAME} --image-ids imageDigest=$imageId; done
-	aws ecr delete-repository --repository-name ${IMAGE_NAME} --force
+	# aws ecr list-images --repository-name ${IMAGE_NAME} --query 'imageIds[*][imageDigest]' --output text | while read imageId; do aws ecr batch-delete-image --repository-name ${IMAGE_NAME} --image-ids imageDigest=$imageId; done
+	aws ecr delete-repository --repository-name ${REPO_NAME} --force
 
 .PHONY: build
 build:
