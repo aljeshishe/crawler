@@ -4,8 +4,13 @@ import time
 
 import boto3
 import requests
+from dotenv import dotenv_values
 
 log = logging.getLogger(__name__)
+
+
+def dot_env_config():
+    return dotenv_values(".env")
 
 
 def invoke_api_endpoint(service_name, timeout=30):
