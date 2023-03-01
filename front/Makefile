@@ -4,11 +4,12 @@ SHELL := /bin/bash
 # convert json -> yaml -> .env
 # If print to yaml directly there could be line split and incorrect values in .env
 $(shell  sls print --path parent --format json | yq -p json | sed 's/: /=/g' > .env)
+
 include .env
+export
 
 export AWS_PAGER=""
 
-export
 .PHONY: install
 install:
 	# login and create private ECR repository if not exists
