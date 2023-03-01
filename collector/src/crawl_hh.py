@@ -23,8 +23,11 @@ def process(name, url):
 
 def store(name, result):
     s3 = S3Bucket()
-    in_file_path = s3.download_file(FILE_NAME)
-    df = pd.read_csv(in_file_path)
+     if s3.file_exists(FILE_NAME):
+        in_file_path = s3.download_file(FILE_NAME)
+        df = pd.read_csv(in_file_path)
+    else:
+        df = pd.DataFrame()
     data = dict(dt=datetime.utcnow(), name=name, value=result)
     df = df.append(data, ignore_index=True)
     out_file_path = s3.tmp_file_path()
