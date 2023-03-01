@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL:=/usr/bin/env bash
 
 # convert json -> yaml -> .env
 # If print to yaml directly there could be line split and incorrect values in .env
