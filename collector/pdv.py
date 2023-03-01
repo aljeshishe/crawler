@@ -1,4 +1,6 @@
-import common.utils
+from common import utils
 
 if __name__ == "__main__":
-    common.utils.invoke_function(function_name="collector-dev-function")
+    config = utils.dot_env_config()
+    full_service_name = config["full_service_name"]
+    utils.invoke_function(function_name=f"{full_service_name}-func")

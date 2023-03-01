@@ -11,7 +11,7 @@ export
 
 .PHONY: logs
 logs:
-	sls logs --function function
+	sls logs --function func
 
 .PHONY: install
 install:

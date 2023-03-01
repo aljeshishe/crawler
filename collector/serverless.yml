@@ -18,7 +18,7 @@ provider:
   timeout: 900
   memorySize: 1024
   deploymentMethod: direct
-  stackName: ${self:parent.stackName}
+  stackName: ${self:parent.full_service_name}-stack
   deploymentPrefix: ${self:parent.deploymentPrefix}
   iam:
     role:
@@ -32,8 +32,9 @@ provider:
       latest:
         uri: ${self:parent.REMOTE_IMAGE}
 functions:
-  function:
+  func:
     image: latest
+    name: ${self:parent.full_service_name}-func
     events:
       - schedule: cron(0 12 * * ? *)
     environment:
