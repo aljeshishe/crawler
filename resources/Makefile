@@ -33,7 +33,6 @@ ifndef FROM
 	@echo 'FROM is not defined (example FROM=2019-01-01_12-00-00))'
 	exit 1
 endif
-	printenv | sort && \
 	echo Restoring from: $$FROM && \
 	for FILE in $(FILES); do \
 		aws s3 cp $$FROM/$$FILE s3://${AWS_S3_BUCKET}/$$FILE ; \
