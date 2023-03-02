@@ -26,4 +26,6 @@ jobs:
 
     - name: Run ci
       run: make ci
+      env:
+        DOCKER_BUILDKIT: 1
 
