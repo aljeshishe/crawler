@@ -11,6 +11,7 @@ export AWS_PAGER=""
 
 .PHONY: install
 install:
+	asdf install
 	# login and create private ECR repository if not exists
 	aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REMOTE_MACHINE}
 	aws ecr describe-repositories --repository-names ${REPO_NAME} || aws ecr create-repository --repository-name ${REPO_NAME}
