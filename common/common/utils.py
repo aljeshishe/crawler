@@ -1,6 +1,7 @@
 import base64
 import logging
 import time
+from pathlib import Path
 
 import boto3
 import requests
@@ -9,8 +10,8 @@ from dotenv import dotenv_values
 log = logging.getLogger(__name__)
 
 
-def dot_env_config():
-    return dotenv_values()
+def dot_env_config(dot_env_path: Path = None):
+    return dotenv_values(dot_env_path)
 
 
 def invoke_api_endpoint(service_name, timeout=30):

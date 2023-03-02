@@ -185,12 +185,12 @@ category = "dev"
 optional = false
 python-versions = "^3.8"
 files = []
-develop = false
+develop = true
 
 [package.dependencies]
 boto3 = "^1.26.27"
-dotenv = "^0.0.5"
 munch = "^2.5.0"
+python-dotenv = "^1.0.0"
 requests = "^2.28.1"
 
 [package.source]
@@ -258,17 +258,6 @@ python-versions = "*"
 files = [
     {file = "dash_table-5.0.0-py3-none-any.whl", hash = "sha256:19036fa352bb1c11baf38068ec62d172f0515f73ca3276c79dee49b95ddc16c9"},
     {file = "dash_table-5.0.0.tar.gz", hash = "sha256:18624d693d4c8ef2ddec99a6f167593437a7ea0bf153aa20f318c170c5bc7308"},
-]
-
-[[package]]
-name = "dotenv"
-version = "0.0.5"
-description = "Handle .env files"
-category = "dev"
-optional = false
-python-versions = "*"
-files = [
-    {file = "dotenv-0.0.5.tar.gz", hash = "sha256:b58d2ab3f83dbd4f8a362b21158a606bee87317a9444485566b3c8f0af847091"},
 ]
 
 [[package]]
@@ -795,4 +784,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "6ab94be01b17eebe634f6a328f98b3d01c6cb1aa095adefcc25ba409e6e24e60"
+content-hash = "7952ed9411f09bad1f7d5e9c19566af5e1368cf40803ae85ae894089b6c6ad27"

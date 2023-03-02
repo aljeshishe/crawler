@@ -15,9 +15,8 @@ install:
 	aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REMOTE_MACHINE}
 	aws ecr describe-repositories --repository-names ${REPO_NAME} || aws ecr create-repository --repository-name ${REPO_NAME}
 
-	# login and create public ECR repository if not exists
-	# aws ecr-public create-repository --repository-name ${REPO_NAME} --region us-east-1 || true
-	# aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+	# login to public ECR so base image could be downloaded
+	aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
 
 .PHONY: uninstall
 uninstall:
@@ -36,7 +35,7 @@ push:
 
 .PHONY: cisetup
 cisetup:
-	poetry install --only dev
+	poetry install --only ci
 
 .PHONY: pdv
 pdv: cisetup
