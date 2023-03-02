@@ -11,9 +11,7 @@ from loguru import logger
 class S3Bucket:
     def __init__(self):
         bucket = os.getenv("AWS_S3_BUCKET")
-        aws_region = os.getenv("AWS_REGION")
-        os.environ["AWS_CONFIG_FILE"] = str(Path(__file__).parent / "aws_config")
-        self.bucket = boto3.resource("s3", region_name=aws_region).Bucket(bucket)
+        self.bucket = boto3.resource("s3").Bucket(bucket)
 
     def tmp_file_path(self) -> Path:
         file_path = Path(f"/tmp/dashboards/{uuid.uuid4()}")
