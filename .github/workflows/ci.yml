@@ -22,7 +22,6 @@ jobs:
       uses: entrostat/git-secret-action@v3.3.0
       with:
         gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-        gpg-private-key-passphrase: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
 
     - name: Run ci
       run: make ci
