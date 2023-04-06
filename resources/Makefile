@@ -21,21 +21,15 @@ FILES = hh.csv linkedin.csv
 
 .PHONY: backup
 backup:
-	BACKUP_DIR=$$(realpath backup) && \
-	echo Backup to: $$BACKUP_DIR && \
-	mkdir -p ./$$BACKUP_DIR  && \
-	for FILE in $(FILES); do \
-		aws s3 cp s3://${AWS_S3_BUCKET}/$$FILE $$BACKUP_DIR/$$FILE; \
-	done
+	echo Backuping
+	mkdir -p backup && \
+	aws s3 cp --recursive s3://${AWS_S3_BUCKET} backup
 
 
 .PHONY: restore
 restore:
-	BACKUP_DIR=$$(realpath backup) && \
-	echo Restoring from: $$BACKUP_DIR && \
-	for FILE in $(FILES); do \
-		aws s3 cp $$BACKUP_DIR/$$FILE s3://${AWS_S3_BUCKET}/$$FILE ; \
-	done
+	echo Restoring
+	aws s3 cp --recursive backup s3://${AWS_S3_BUCKET}
 
 
 .PHONY: remove_data
