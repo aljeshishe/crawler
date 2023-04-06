@@ -216,3 +216,6 @@ fabric.properties
 .gitsecret/keys/random_seed
 !*.secret
 .secretenv
+.serverless
+node_modules/**
+**/package.json
