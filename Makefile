@@ -12,6 +12,7 @@ endif
 
 .PHONY: full_deploy
 full_deploy:
+	git secret reveal -f && \
 	for dir in $(SUBDIRS); do \
     echo "[$$dir]: make $@"; \
     $(MAKE) --directory=$$dir $@; \
