@@ -4,6 +4,7 @@ from loguru import logger
 
 from src import crawl_hh
 from src import crawl_linkedin
+from src import crawl_bazaraki
 from src import utils
 
 utils.init_sentry()
@@ -15,6 +16,7 @@ logger.add(sys.stdout, format="{time} - {level} - {message}", level="INFO", diag
 def run(event, context):
     crawl_hh.handler()
     crawl_linkedin.handler()
+    crawl_bazaraki.handler()
 
 
 if __name__ == "__main__":

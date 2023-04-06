@@ -32,7 +32,7 @@ app = dash.Dash(
         {"name": "viewport", "content": "width=device-width, initial-scale=1.0"}
     ],
 )
-app.title = "hh.ru python developers count"
+app.title = "Statistics dashboard"
 
 mapbox_access_token = "pk.eyJ1IjoicGxvdGx5bWFwYm94IiwiYSI6ImNrOWJqb2F4djBnMjEzbG50amg0dnJieG4ifQ.Zme1-Uzoi75IaFbieBDl3A"
 mapbox_style = "mapbox://styles/plotlymapbox/cjvprkf3t1kns1cqjxuxmwixz"
@@ -42,6 +42,9 @@ hh_figure = px.line(df, x="dt", y="value", color="name")
 
 df = read_data(file="linkedin.csv")
 linkedin_figure = px.line(df, x="dt", y="value", color="name")
+
+df = read_data(file="bazaraki.csv")
+bazaraki_figure = px.line(df, x="dt", y="value", color="name")
 
 app.layout = html.Div(
     id="root",
@@ -69,10 +72,12 @@ app.layout = html.Div(
                         html.Div(
                             id="heatmap-container",
                             children=[
-                                html.P(f"hh.ru statistics"),
+                                html.P(f"hh.ru"),
                                 dcc.Graph(id='hh-graph', figure=hh_figure),
-                                html.P(f"linkedin.com statistics"),
-                                dcc.Graph(id='linkedin-graph', figure=linkedin_figure)
+                                html.P(f"linkedin.com"),
+                                dcc.Graph(id='linkedin-graph', figure=linkedin_figure),
+                                html.P(f"bazaraki.com"),
+                                dcc.Graph(id='bazaraki-graph', figure=bazaraki_figure)
                             ],
                         ),
                     ],
