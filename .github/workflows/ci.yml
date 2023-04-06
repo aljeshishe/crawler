@@ -1,5 +1,9 @@
 name: Makefile CI
 
+# disable parallel runs
+concurrency:
+  group: my-concurrency-group
+
 on:
   push:
     branches: [ "master" ]
