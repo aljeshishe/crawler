@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+$(V).SILENT:
+
 # convert json -> yaml -> .env
 # If print to yaml directly there could be line split and incorrect values in .env
 $(shell  sls print --path parent --format json | yq -p json | sed 's/: /=/g' > .env)
@@ -17,9 +19,9 @@ remove:
 
 FILES = hh.csv linkedin.csv
 
-.PHONY: backup_data
-backup_data:
-	BACKUP_DIR=$(shell date +%Y-%m-%d_%H-%M-%S) && \
+.PHONY: backup
+backup:
+	BACKUP_DIR=$$(realpath backup) && \
 	echo Backup to: $$BACKUP_DIR && \
 	mkdir -p ./$$BACKUP_DIR  && \
 	for FILE in $(FILES); do \
@@ -27,15 +29,12 @@ backup_data:
 	done
 
 
-.PHONY: restore_data
-restore_data:
-ifndef FROM
-	@echo 'FROM is not defined (example FROM=2019-01-01_12-00-00))'
-	exit 1
-endif
-	echo Restoring from: $$FROM && \
+.PHONY: restore
+restore:
+	BACKUP_DIR=$$(realpath backup) && \
+	echo Restoring from: $$BACKUP_DIR && \
 	for FILE in $(FILES); do \
-		aws s3 cp $$FROM/$$FILE s3://${AWS_S3_BUCKET}/$$FILE ; \
+		aws s3 cp $$BACKUP_DIR/$$FILE s3://${AWS_S3_BUCKET}/$$FILE ; \
 	done
 
 
