@@ -23,7 +23,4 @@ TE: trailers
 
 
 ###
-
-GET https://ya.ru/ HTTP/1.1
-~Host: ya.ru
-
+GET https://www.bazaraki.com/real-estate-to-rent/apartments-flats/number-of-bedrooms---0/number-of-bedrooms---1/number-of-bedrooms---2/lemesos-district-limassol/?price_max=1500
