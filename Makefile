@@ -12,7 +12,7 @@ endif
 
 .PHONY: full_deploy
 full_deploy:
-	git secret reveal -f && \
+	# git secret reveal -f && \ # fails on CI with: git: 'secret' is not a git command. See 'git --help'.
 	for dir in $(SUBDIRS); do \
     echo "[$$dir]: make $@"; \
     $(MAKE) --directory=$$dir $@; \
