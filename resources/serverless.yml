@@ -8,6 +8,7 @@ parent: ${file(../serverless.common.yml):parent}
 
 provider:
   name: aws
+  architecture: arm64
   stage: ${self:parent.stage}
   region: ${self:parent.region}
   deploymentMethod: direct

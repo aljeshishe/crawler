@@ -13,6 +13,7 @@ parent: ${file(../serverless.common.yml):parent}
 provider:
   name: aws
   runtime: python3.9
+  architecture: arm64
   stage: ${self:parent.stage}
   region: ${self:parent.region}
   timeout: 900
